@@ -101,36 +101,94 @@ https://templatemo.com/tm-593-personal-shape
             });
         });
 
-        // Enhanced form submission with better UX
-        document.querySelector('.contact-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const submitBtn = document.querySelector('.submit-btn');
-            const originalText = submitBtn.textContent;
-            
-            // Add loading state
-            submitBtn.textContent = 'Sending...';
-            submitBtn.disabled = true;
-            submitBtn.style.background = 'linear-gradient(135deg, #94a3b8, #64748b)';
-            
-            // Simulate form submission with better feedback
+       // Enhanced form submission with email sending
+document.querySelector('.contact-form').addEventListener('submit', async (e) => {
+
+    e.preventDefault();
+
+    const form = document.querySelector('.contact-form');
+    const submitBtn = document.querySelector('.submit-btn');
+    const originalText = submitBtn.textContent;
+
+    // Loading State
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
+    submitBtn.style.background =
+        'linear-gradient(135deg, #94a3b8, #64748b)';
+
+    try {
+
+        // Send form data
+        const response = await fetch(
+            'https://formsubmit.co/ajax/samyakgosavi20@gmail.com',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+
+                body: JSON.stringify({
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    subject: document.getElementById('subject').value,
+                    message: document.getElementById('message').value,
+                    _captcha: "true",
+                    _template: "table"
+                })
+            }
+        );
+
+        if (response.ok) {
+
+            // Success State
+            submitBtn.textContent = 'Message Sent! ✓';
+
+            submitBtn.style.background =
+                'linear-gradient(135deg, #10b981, #059669)';
+
+            // Animation
+            submitBtn.style.transform = 'scale(1.05)';
+
             setTimeout(() => {
-                submitBtn.textContent = 'Message Sent! ✓';
-                submitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-                
-                // Show success animation
-                submitBtn.style.transform = 'scale(1.05)';
-                setTimeout(() => {
-                    submitBtn.style.transform = 'scale(1)';
-                }, 200);
-                
-                setTimeout(() => {
-                    submitBtn.textContent = originalText;
-                    submitBtn.disabled = false;
-                    submitBtn.style.background = '';
-                    document.querySelector('.contact-form').reset();
-                }, 3000);
-            }, 2000);
-        });
+                submitBtn.style.transform = 'scale(1)';
+            }, 200);
+
+            // Reset form
+            setTimeout(() => {
+
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                submitBtn.style.background = '';
+
+                form.reset();
+
+            }, 3000);
+
+        } else {
+
+            throw new Error('Failed to send');
+
+        }
+
+    } catch (error) {
+
+        submitBtn.textContent = 'Failed to Send';
+
+        submitBtn.style.background =
+            'linear-gradient(135deg, #ef4444, #dc2626)';
+
+        setTimeout(() => {
+
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+            submitBtn.style.background = '';
+
+        }, 3000);
+
+    }
+
+});
 
         // Enhanced parallax effect for hero background
         let ticking = false;
@@ -169,3 +227,10 @@ https://templatemo.com/tm-593-personal-shape
                 document.body.style.overflow = 'auto';
             }
         });
+
+  function onClick(e) {
+    e.preventDefault();
+    grecaptcha.enterprise.ready(async () => {
+      const token = await grecaptcha.enterprise.execute('6Ldu_uUsAAAAACAVY0a833VH8aMIrol5FiApdrVG', {action: 'submit'});
+    });
+  }
