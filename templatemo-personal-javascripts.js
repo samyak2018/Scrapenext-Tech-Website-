@@ -227,3 +227,18 @@ document.querySelector('.contact-form').addEventListener('submit', async (e) => 
                 document.body.style.overflow = 'auto';
             }
         });
+
+
+
+        function enableSubmit() {
+        document.querySelector(".submit-btn").disabled = false;
+        document.querySelector(".submit-btn").style.opacity = "1";
+        document.querySelector(".submit-btn").style.cursor = "pointer";
+    }
+
+    window.onload = () => {
+        const btn = document.querySelector(".submit-btn");
+        btn.disabled = true;
+        btn.style.opacity = "0.6";
+        btn.style.cursor = "not-allowed";
+    };
