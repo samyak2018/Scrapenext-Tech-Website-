@@ -120,7 +120,7 @@ document.querySelector('.contact-form').addEventListener('submit', async (e) => 
 
         // Send form data
         const response = await fetch(
-            'https://formsubmit.co/ajax/info@scrapenext.com',
+            'https://formsubmit.co/ajax/samyakgosavi20@gmail.com',
             {
                 method: 'POST',
                 headers: {
