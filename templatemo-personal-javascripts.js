@@ -227,10 +227,3 @@ document.querySelector('.contact-form').addEventListener('submit', async (e) => 
                 document.body.style.overflow = 'auto';
             }
         });
-
-  function onClick(e) {
-    e.preventDefault();
-    grecaptcha.enterprise.ready(async () => {
-      const token = await grecaptcha.enterprise.execute('6Ldu_uUsAAAAACAVY0a833VH8aMIrol5FiApdrVG', {action: 'submit'});
-    });
-  }
